@@ -1,5 +1,13 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+// import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { Report } from 'notiflix/build/notiflix-report-aio';
+// import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
+// import { Loading } from 'notiflix/build/notiflix-loading-aio';
+// import { Block } from 'notiflix/build/notiflix-block-aio';
+// import 'flatpickr/dist/flatpickr.min.css';
+import 'notiflix/dist/notiflix-3.2.5.min.css';
+
 const refs = {
   inputEl: document.querySelector('#datetime-picker'),
   startBtn: document.querySelector('button[data-start]'),
@@ -29,7 +37,17 @@ const options = {
   onClose(selectedDates) {
     if (selectedDates[0] <= Date.now()) {
       refs.startBtn.setAttribute('disabled', '');
-      window.alert('Please choose a date in the future');
+
+      Report.failure(
+        'Attention!',
+        'Please choose a date in the future',
+        'Okay',
+        {
+          width: '300px',
+          titleFontSize: '22px',
+          messageFontSize: '16px',
+        }
+      );
     }
   },
 };
@@ -53,10 +71,16 @@ function onStartBtnClick() {
       updateTimerFace(getTime);
     } else {
       stopTimer(timerId);
-      window.alert('Game is over');
+      // window.alert('Game is over');
+      Report.info('Too late...', 'Time is over', 'Okay', {
+        width: '300px',
+        titleFontSize: '22px',
+        messageFontSize: '16px',
+      });
     }
   }, INTERVAL);
 }
+
 function stopTimer(timerId) {
   clearInterval(timerId);
   isActiveTimer = false;
@@ -91,3 +115,8 @@ function convertMs(ms) {
 function addLeadingZero(value) {
   return String(value).padStart(2, '0');
 }
+// Report.failure(
+//   'Notiflix Failure',
+//   '"Failure is simply the opportunity to begin again, this time more intelligently." <br/><br/>- Henry Ford',
+//   'Okay'
+// );
