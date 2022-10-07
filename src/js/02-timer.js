@@ -19,7 +19,6 @@ const options = {
   onChange(selectedDates) {
     if (selectedDates[0] <= new Date()) {
       refs.startBtn.setAttribute('disabled', '');
-      //   window.alert('Please choose a date in the future');
     } else {
       if (refs.startBtn.hasAttribute('disabled')) {
         refs.startBtn.removeAttribute('disabled');
@@ -27,23 +26,14 @@ const options = {
     }
   },
   onClose(selectedDates) {
-    console.log(selectedDates[0]);
-
     if (selectedDates[0] <= Date.now()) {
       refs.startBtn.setAttribute('disabled', '');
       window.alert('Please choose a date in the future');
-    } //else {
-    //   if (refs.startBtn.hasAttribute('disabled')) {
-    //     refs.startBtn.removeAttribute('disabled');
-    //   }
-    // }
+    }
   },
 };
 
-const fp = flatpickr(refs.inputEl, options); // flatpickr
-// if (refs.startBtn.hasAttribute('disabled')) {
-//   refs.startBtn.removeAttribute('disabled');
-// }
+const fp = flatpickr(refs.inputEl, options);
 refs.startBtn.addEventListener('click', onStartBtnClick);
 
 function onStartBtnClick() {
@@ -51,21 +41,16 @@ function onStartBtnClick() {
     return;
   }
   isActiveTimer = true;
-  //   convertMs(ms);
-  console.log('zapusk');
 
   timerId = setInterval(() => {
     const currentTime = Date.now();
     const ms = fp.selectedDates[0] - currentTime;
 
-    console.log(ms);
     if (ms >= 0) {
-      let { days, hours, minutes, seconds } = convertMs(ms);
-      console.log('f', fp.selectedDates[0]);
-      console.log('now', currentTime);
-      updateTimerFace({ days, hours, minutes, seconds });
+      const getTime = convertMs(ms);
+
+      updateTimerFace(getTime);
     } else {
-      console.log('Vse');
       stopTimer(timerId);
       window.alert('Game is over');
     }
