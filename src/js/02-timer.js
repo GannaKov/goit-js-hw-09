@@ -26,7 +26,7 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onChange(selectedDates) {
-    if (selectedDates[0] <= new Date()) {
+    if (selectedDates[0] <= Date.now()) {
       refs.startBtn.setAttribute('disabled', '');
     } else {
       if (refs.startBtn.hasAttribute('disabled')) {
@@ -87,7 +87,6 @@ function stopTimer(timerId) {
 }
 function updateTimerFace({ days, hours, minutes, seconds }) {
   refs.daysCouner.textContent = days;
-
   refs.hoursCouner.textContent = hours;
   refs.minutesCouner.textContent = minutes;
   refs.secondsCouner.textContent = seconds;
@@ -115,8 +114,3 @@ function convertMs(ms) {
 function addLeadingZero(value) {
   return String(value).padStart(2, '0');
 }
-// Report.failure(
-//   'Notiflix Failure',
-//   '"Failure is simply the opportunity to begin again, this time more intelligently." <br/><br/>- Henry Ford',
-//   'Okay'
-// );
