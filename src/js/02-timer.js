@@ -45,12 +45,14 @@ refs.startBtn.addEventListener('click', onStartBtnClick);
 function onStartBtnClick() {
   const ms = fp.selectedDates[0] - new Date();
   console.log(ms);
-  convertMs(ms);
+  //   convertMs(ms);
   //   console.dir(convertMs(ms).days);
-  refs.daysCouner.textContent = convertMs(ms).days;
-  refs.hoursCouner.textContent = convertMs(ms).hours;
-  refs.minutesCouner.textContent = convertMs(ms).minutes;
-  refs.secondsCouner.textContent = convertMs(ms).seconds;
+  let { days, hours, minutes, seconds } = convertMs(ms);
+  refs.daysCouner.textContent = days;
+
+  refs.hoursCouner.textContent = hours;
+  refs.minutesCouner.textContent = minutes;
+  refs.secondsCouner.textContent = seconds;
 }
 function convertMs(ms) {
   // Number of milliseconds per unit of time
