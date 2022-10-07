@@ -8,6 +8,9 @@ const refs = {
   minutesCouner: document.querySelector('span[data-minutes]'),
   secondsCouner: document.querySelector('span[data-seconds]'),
 };
+let timerId = null;
+let isActiveTimer = false;
+const INTERVAL = 1000;
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -26,7 +29,7 @@ const options = {
   onClose(selectedDates) {
     console.log(selectedDates[0]);
 
-    if (selectedDates[0] <= new Date()) {
+    if (selectedDates[0] <= Date.now()) {
       refs.startBtn.setAttribute('disabled', '');
       window.alert('Please choose a date in the future');
     } //else {
@@ -42,12 +45,37 @@ const fp = flatpickr(refs.inputEl, options); // flatpickr
 //   refs.startBtn.removeAttribute('disabled');
 // }
 refs.startBtn.addEventListener('click', onStartBtnClick);
+
 function onStartBtnClick() {
-  const ms = fp.selectedDates[0] - new Date();
-  console.log(ms);
+  if (isActiveTimer) {
+    return;
+  }
+  isActiveTimer = true;
   //   convertMs(ms);
-  //   console.dir(convertMs(ms).days);
-  let { days, hours, minutes, seconds } = convertMs(ms);
+  console.log('zapusk');
+
+  timerId = setInterval(() => {
+    const currentTime = Date.now();
+    const ms = fp.selectedDates[0] - currentTime;
+
+    console.log(ms);
+    if (ms >= 0) {
+      let { days, hours, minutes, seconds } = convertMs(ms);
+      console.log('f', fp.selectedDates[0]);
+      console.log('now', currentTime);
+      updateTimerFace({ days, hours, minutes, seconds });
+    } else {
+      console.log('Vse');
+      stopTimer(timerId);
+      window.alert('Game is over');
+    }
+  }, INTERVAL);
+}
+function stopTimer(timerId) {
+  clearInterval(timerId);
+  isActiveTimer = false;
+}
+function updateTimerFace({ days, hours, minutes, seconds }) {
   refs.daysCouner.textContent = days;
 
   refs.hoursCouner.textContent = hours;
@@ -62,13 +90,16 @@ function convertMs(ms) {
   const day = hour * 24;
 
   // Remaining days
-  const days = Math.floor(ms / day);
+  const days = pad(Math.floor(ms / day));
   // Remaining hours
-  const hours = Math.floor((ms % day) / hour);
+  const hours = pad(Math.floor((ms % day) / hour));
   // Remaining minutes
-  const minutes = Math.floor(((ms % day) % hour) / minute);
+  const minutes = pad(Math.floor(((ms % day) % hour) / minute));
   // Remaining seconds
-  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+  const seconds = pad(Math.floor((((ms % day) % hour) % minute) / second));
 
   return { days, hours, minutes, seconds };
+}
+function pad(value) {
+  return String(value).padStart(2, '0');
 }
