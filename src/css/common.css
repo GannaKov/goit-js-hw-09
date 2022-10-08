@@ -16,11 +16,14 @@ img {
   display: block;
   max-width: 100%;
 }
+/* ---- Color Switch ----- */
+
 /* -------- Timer ------*/
 #datetime-picker {
   margin-right: 30px;
   height: 30px;
 }
+/* .timer-btn { */
 .timer-btn {
   width: 70px;
   height: 30px;
@@ -29,10 +32,16 @@ img {
   font-size: 14px;
   line-height: 1.19;
 }
-.timer-btn:focus,
-.timer-btn:hover {
-  /* border-color: rgba(255, 6, 102, 0.61); */
-  font-size: 16px;
+button[disabled] {
+  cursor: default;
+}
+
+.timer-btn:focus:not([disabled]),
+.timer-btn:hover:not([disabled]) {
+  border-color: rgba(20, 85, 206, 0.986);
+
+  border-width: 3px;
+  font-size: 14px;
   line-height: 1.19;
   font-weight: 700;
 }

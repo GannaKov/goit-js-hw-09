@@ -28,8 +28,10 @@ const options = {
   onChange(selectedDates) {
     if (selectedDates[0] <= Date.now()) {
       refs.startBtn.setAttribute('disabled', '');
-    } else if (refs.startBtn.hasAttribute('disabled')) {
-      refs.startBtn.removeAttribute('disabled');
+    } else {
+      if (refs.startBtn.hasAttribute('disabled')) {
+        refs.startBtn.removeAttribute('disabled');
+      }
     }
   },
   onClose(selectedDates) {
@@ -41,7 +43,7 @@ const options = {
         'Please choose a date in the future',
         'Okay',
         {
-          width: '300px',
+          width: '400px',
           titleFontSize: '22px',
           messageFontSize: '16px',
         }
@@ -57,6 +59,7 @@ function onStartBtnClick() {
   if (isActiveTimer) {
     return;
   }
+  refs.startBtn.setAttribute('disabled', '');
   isActiveTimer = true;
 
   timerId = setInterval(() => {
@@ -77,7 +80,7 @@ function stopTimer(timerId) {
   clearInterval(timerId);
   isActiveTimer = false;
   Report.info('Too late...', 'Time is over', 'Okay', {
-    width: '300px',
+    width: '400px',
     titleFontSize: '22px',
     messageFontSize: '16px',
   });
