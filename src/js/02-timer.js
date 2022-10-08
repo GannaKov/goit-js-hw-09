@@ -1,7 +1,7 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
-
-import { Report } from 'notiflix/build/notiflix-report-aio';
+import { Report } from 'notiflix';
+// import { Report } from 'notiflix/build/notiflix-report-aio';
 // import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
 // import { Loading } from 'notiflix/build/notiflix-loading-aio';
 // import { Block } from 'notiflix/build/notiflix-block-aio';
@@ -28,10 +28,8 @@ const options = {
   onChange(selectedDates) {
     if (selectedDates[0] <= Date.now()) {
       refs.startBtn.setAttribute('disabled', '');
-    } else {
-      if (refs.startBtn.hasAttribute('disabled')) {
-        refs.startBtn.removeAttribute('disabled');
-      }
+    } else if (refs.startBtn.hasAttribute('disabled')) {
+      refs.startBtn.removeAttribute('disabled');
     }
   },
   onClose(selectedDates) {
@@ -71,7 +69,7 @@ function onStartBtnClick() {
       updateTimerFace(getTime);
     } else {
       stopTimer(timerId);
-      // window.alert('Game is over');
+
       Report.info('Too late...', 'Time is over', 'Okay', {
         width: '300px',
         titleFontSize: '22px',
@@ -86,8 +84,8 @@ function stopTimer(timerId) {
   isActiveTimer = false;
 }
 function updateTimerFace({ days, hours, minutes, seconds }) {
-  refs.daysCounetr.textContent = days;
-  refs.hoursCounetr.textContent = hours;
+  refs.daysCounter.textContent = days;
+  refs.hoursCounter.textContent = hours;
   refs.minutesCounter.textContent = minutes;
   refs.secondsCounter.textContent = seconds;
 }
