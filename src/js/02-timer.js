@@ -11,10 +11,10 @@ import 'notiflix/dist/notiflix-3.2.5.min.css';
 const refs = {
   inputEl: document.querySelector('#datetime-picker'),
   startBtn: document.querySelector('button[data-start]'),
-  daysCouner: document.querySelector('span[data-days]'),
-  hoursCouner: document.querySelector('span[data-hours]'),
-  minutesCouner: document.querySelector('span[data-minutes]'),
-  secondsCouner: document.querySelector('span[data-seconds]'),
+  daysCounter: document.querySelector('span[data-days]'),
+  hoursCounter: document.querySelector('span[data-hours]'),
+  minutesCounter: document.querySelector('span[data-minutes]'),
+  secondsCounter: document.querySelector('span[data-seconds]'),
 };
 let timerId = null;
 let isActiveTimer = false;
@@ -86,10 +86,10 @@ function stopTimer(timerId) {
   isActiveTimer = false;
 }
 function updateTimerFace({ days, hours, minutes, seconds }) {
-  refs.daysCouner.textContent = days;
-  refs.hoursCouner.textContent = hours;
-  refs.minutesCouner.textContent = minutes;
-  refs.secondsCouner.textContent = seconds;
+  refs.daysCounetr.textContent = days;
+  refs.hoursCounetr.textContent = hours;
+  refs.minutesCounter.textContent = minutes;
+  refs.secondsCounter.textContent = seconds;
 }
 function convertMs(ms) {
   // Number of milliseconds per unit of time
