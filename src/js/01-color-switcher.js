@@ -12,6 +12,10 @@ const DELAYINTERVAL = 1000;
 let timerId = null;
 function onStartBtnClick() {
   refs.startBtn.setAttribute('disabled', '');
+  if (refs.stopBtn.hasAttribute('disabled')) {
+    refs.stopBtn.removeAttribute('disabled');
+  }
+
   timerId = setInterval(() => {
     const colorBody = getRandomHexColor();
     refs.bodyEl.style.backgroundColor = colorBody;
@@ -19,5 +23,6 @@ function onStartBtnClick() {
 }
 function onStopBtnClick() {
   refs.startBtn.removeAttribute('disabled');
+  refs.stopBtn.setAttribute('disabled', '');
   clearInterval(timerId);
 }

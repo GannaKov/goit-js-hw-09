@@ -69,12 +69,6 @@ function onStartBtnClick() {
       updateTimerFace(getTime);
     } else {
       stopTimer(timerId);
-
-      Report.info('Too late...', 'Time is over', 'Okay', {
-        width: '300px',
-        titleFontSize: '22px',
-        messageFontSize: '16px',
-      });
     }
   }, INTERVAL);
 }
@@ -82,6 +76,11 @@ function onStartBtnClick() {
 function stopTimer(timerId) {
   clearInterval(timerId);
   isActiveTimer = false;
+  Report.info('Too late...', 'Time is over', 'Okay', {
+    width: '300px',
+    titleFontSize: '22px',
+    messageFontSize: '16px',
+  });
 }
 function updateTimerFace({ days, hours, minutes, seconds }) {
   refs.daysCounter.textContent = days;
@@ -112,4 +111,3 @@ function convertMs(ms) {
 function addLeadingZero(value) {
   return String(value).padStart(2, '0');
 }
-//----------------
