@@ -1,5 +1,7 @@
+import { Notify } from 'notiflix';
+// import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import 'notiflix/dist/notiflix-3.2.5.min.css';
 function createPromise(position, delay) {
-  console.log(position, delay);
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const shouldResolve = Math.random() > 0.3;
@@ -28,17 +30,17 @@ function onFormSubmit(event) {
     createPromise(i + 1, interval)
       .then(onSuccess)
       .catch(onError);
-    // .then(({ position, delay }) => {
-    //   console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
-    // })
-    // .catch(({ position, delay }) => {
-    //   console.log(`❌ Rejected promise ${position} in ${delay}ms`);
-    // });
   }
 }
 function onSuccess({ position, delay }) {
+  Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`, {
+    timeout: 4000,
+  });
   console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
 }
 function onError({ position, delay }) {
+  Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`, {
+    timeout: 4000,
+  });
   console.log(`❌ Rejected promise ${position} in ${delay}ms`);
 }
